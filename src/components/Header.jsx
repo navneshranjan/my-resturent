@@ -23,6 +23,8 @@ const Header = () => {
       type: actionType.SET_USER,
       user: providerData[0],
     });
+    //store the user data in local storage so thad when you refresh the page data will be there
+    localStorage.setItem("user", JSON.stringify(providerData[0]));
   };
   return (
     <header className="fixed w-screen p-6 px-16   z-50 ">
@@ -56,9 +58,9 @@ const Header = () => {
           <div onClick={login}>
             <motion.img
               whileTap={{ scale: 0.6 }}
-              src={Avatar}
+              src={user ? user.photoURL : Avatar}
               alt="profilePicture"
-              className="h-10 w-10 shadow-xl min-w-[40px] min-h-[40px]"
+              className="h-10 w-10 shadow-xl min-w-[40px] min-h-[40px] rounded-full"
             />
           </div>
         </div>
