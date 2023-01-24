@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../img/logo.png";
 import Avatar from "../img/avatar.png";
-import { MdShoppingBasket } from "react-icons/md";
+import { MdShoppingBasket, MdAdd, MdLogout } from "react-icons/md";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { app } from "../firebase.config";
@@ -14,17 +14,22 @@ const Header = () => {
   const firebaseAuth = getAuth(app);
   const firebaseProvider = new GoogleAuthProvider();
   const [{ user }, dispatch] = useStateValue();
+  const [ismenue, setIsmenue] = useState(false);
 
   const login = async () => {
-    const {
-      user: { refreshToken, providerData },
-    } = await signInWithPopup(firebaseAuth, firebaseProvider);
-    dispatch({
-      type: actionType.SET_USER,
-      user: providerData[0],
-    });
-    //store the user data in local storage so thad when you refresh the page data will be there
-    localStorage.setItem("user", JSON.stringify(providerData[0]));
+    if (!user) {
+      const {
+        user: { refreshToken, providerData },
+      } = await signInWithPopup(firebaseAuth, firebaseProvider);
+      dispatch({
+        type: actionType.SET_USER,
+        user: providerData[0],
+      });
+      //store the user data in local storage so thad when you refresh the page data will be there
+      localStorage.setItem("user", JSON.stringify(providerData[0]));
+    } else {
+      setIsmenue(!ismenue);
+    }
   };
   return (
     <header className="fixed w-screen p-6 px-16   z-50 ">
@@ -63,6 +68,27 @@ const Header = () => {
               className="h-10 w-10 shadow-xl min-w-[40px] min-h-[40px] rounded-full"
             />
           </div>
+          {ismenue && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.6 }}
+              className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-20 right-20  "
+            >
+              {user && user.email === "navneshranjan@gmail.com" && (
+                <Link to={"/createitem"}>
+                  <p className="px-4 py-2 flex text-base items-center gap-3 cursor-pointer hover:bg-slate-100 transition duration-100 ease-in-out text-textColor">
+                    New Item <MdAdd />
+                  </p>
+                </Link>
+              )}
+
+              <p className="px-4 py-2 flex text-base items-center gap-3 cursor-pointer hover:bg-slate-100 transition duration-100 ease-in-out text-textColor">
+                Logout
+                <MdLogout />
+              </p>
+            </motion.div>
+          )}
         </div>
       </div>
       {/* Mobile*/}
