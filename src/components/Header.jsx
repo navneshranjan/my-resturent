@@ -105,6 +105,12 @@ const Header = () => {
       </div>
       {/* Mobile*/}
       <div className=" flex md:hidden w-full h-full items-center justify-between ">
+        <div className="relative flex justify-center ">
+          <MdShoppingBasket className="text-2xl text-textColor  cursor-pointer" />
+          <div className="bg-cartNumBg rounded-full w-5 h-5 flex absolute -top-2 -right-5 justify-center items-center">
+            <p className="text-xs text-white font-semibold ">2</p>
+          </div>
+        </div>
         <Link to={"/"} className="flex items-center gap-2">
           <img src={Logo} alt="logo" className="w-8 object-cover" />
           <p className="text-headingColor text-xl">City</p>
