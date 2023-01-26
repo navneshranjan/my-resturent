@@ -31,6 +31,14 @@ const Header = () => {
       setIsmenue(!ismenue);
     }
   };
+  const logout = () => {
+    setIsmenue(false);
+    localStorage.clear();
+    dispatch({
+      type: actionType.SET_USER,
+      user: null,
+    });
+  };
   return (
     <header className="fixed w-screen md:p-6 md:px-16 px-4 py-3   z-50 ">
       {/* Desltop and Tab*/}
@@ -83,7 +91,10 @@ const Header = () => {
                   </Link>
                 )}
 
-                <p className="px-4 py-2 flex text-base items-center gap-3 cursor-pointer hover:bg-slate-100 transition duration-100 ease-in-out text-textColor">
+                <p
+                  className="px-4 py-2 flex text-base items-center gap-3 cursor-pointer hover:bg-slate-100 transition duration-100 ease-in-out text-textColor"
+                  onClick={logout}
+                >
                   Logout
                   <MdLogout />
                 </p>
@@ -136,7 +147,10 @@ const Header = () => {
                 </li>
               </ul>
 
-              <p className="px-4 py-2 flex text-base items-center gap-3 cursor-pointer hover:bg-slate-100 transition duration-100 ease-in-out text-textColor">
+              <p
+                className="px-4 py-2 flex text-base items-center gap-3 cursor-pointer hover:bg-slate-100 transition duration-100 ease-in-out text-textColor"
+                onClick={logout}
+              >
                 Logout
                 <MdLogout />
               </p>
