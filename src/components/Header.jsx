@@ -40,7 +40,7 @@ const Header = () => {
     });
   };
   return (
-    <header className="fixed w-screen md:p-6 md:px-16 px-4 py-3   z-50 ">
+    <header className="fixed w-screen md:p-6 md:px-16 px-4 py-3 bg-primary  z-50 ">
       {/* Desltop and Tab*/}
       <div className="hidden md:flex  w-full  items-center justify-between  ">
         <Link to={"/"} className="flex items-center gap-2">
